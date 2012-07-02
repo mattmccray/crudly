@@ -1,0 +1,43 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+#  Copyright (c) 2011 M@ McCray. All rights reserved.
+
+require 'rubygems'
+require 'bundler/setup'
+require 'thor'
+require 'launchy'
+require 'crudly'
+
+class CrudlyCLI < Thor
+
+  desc 'ui [DATABASE]', "Launches ui for [DATABASE]"
+  method_option :host, aliases:'-h', default:'127.0.0.1', type: :boolean, desc:"Host address to bind to, use 0.0.0.0 to access from other computers."
+  method_option :port, aliases:'-p', default:'6500', desc:"Server port to use."
+  method_option :browse, aliases:'-b', default:true, type: :boolean, desc:"Automatically launch the browser."
+  def ui(database)
+    if File.exists?
+      url= "http://#{ options[:host] }:#{ options[:port] }"
+      options[:filename]= database
+      # Crudly::Server.run options
+      say "TODO: Launch server!"
+      # Launchy.open( url ) if options[:browse]
+    else
+      say "#{ database } doesn't exist!"
+    end
+  rescue => ex
+    say "Woe is me! There was a problem:"
+    say ex.message
+    say ex.backtrace.join("\n")
+  end
+
+  desc 'new [DATABASE]', "Create a new sqlite database"
+  method_option :ui, aliases:'-u', default:true, type: :boolean, desc:"Automatically launch ui."
+  def new(db_name)
+
+    say "TODO: Create a new db!"
+
+  end
+
+end
+
+CrudlyCLI.start

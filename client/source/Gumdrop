@@ -1,0 +1,5 @@
+
+Gumdrop.configure do |config|
+  config.source_dir= './'
+  config.output_dif= '../public'
+end
